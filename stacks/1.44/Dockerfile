@@ -1,15 +1,15 @@
 #################################################################
 # Dockerfile
 #
-# Version:          1.2.1
+# Version:          1.2.3
 # Software:         Stacks
-# Software Version: 1.41
+# Software Version: 1.44
 # Description:      Stacks was developed to work with restriction enzyme-based data, such as RAD-seq, for the purpose of building genetic maps and conducting population...
 # Website:          http://catchenlab.life.illinois.edu/stacks/
 # Tags:             Genomics
-# Provides:         Stacks 1.41
+# Provides:         Stacks 1.44
 # Base Image:       biodckr/biodocker:latest
-# Build Cmd:        docker build --rm -t biodckr/stacks 1.41/.
+# Build Cmd:        docker build --rm -t biodckr/stacks 1.44/.
 # Pull Cmd:         docker pull biodckr/stacks
 # Run Cmd:          docker run --rm biodckr/stacks <tool> <options>
 #################################################################
@@ -18,7 +18,7 @@
 FROM biodckr/biodocker:latest
 
 ################## BEGIN INSTALLATION ###########################
-ENV STACKVERSION 1.41
+ENV STACKVERSION 1.44
 
 USER root
 
