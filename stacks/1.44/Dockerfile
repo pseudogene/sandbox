@@ -1,26 +1,23 @@
-#################################################################
-# Dockerfile
-#
-# Version:          1.2.3
-# Software:         Stacks
-# Software Version: 1.44
-# Description:      Stacks was developed to work with restriction enzyme-based data, such as RAD-seq, for the purpose of building genetic maps and conducting population...
-# Website:          http://catchenlab.life.illinois.edu/stacks/
-# Tags:             Genomics
-# Provides:         Stacks 1.44
-# Base Image:       biodckr/biodocker:latest
-# Build Cmd:        docker build --rm -t biodckr/stacks 1.44/.
-# Pull Cmd:         docker pull biodckr/stacks
-# Run Cmd:          docker run --rm biodckr/stacks <tool> <options>
-#################################################################
+# Base Image
+FROM biocontainers/biocontainers:latest
 
-# Set the base image to biodckr/biodocker
-FROM biodckr/biodocker:latest
+# Metadata
+LABEL base.image="biocontainers:latest"
+LABEL version="1.44"
+LABEL software="Stacks"
+LABEL software.version="1.44"
+LABEL description="Stacks was developed to work with restriction enzyme-based data, such as RAD-seq, for the purpose of building genetic maps and conducting population..."
+LABEL website="http://catchenlab.life.illinois.edu/stacks/"
+LABEL documentation="http://catchenlab.life.illinois.edu/stacks/"
+LABEL license="http://catchenlab.life.illinois.edu/stacks/"
+LABEL tags="Genomics"
 
-################## BEGIN INSTALLATION ###########################
-ENV STACKVERSION 1.44
+# Maintainer
+MAINTAINER Michael Bekaert <michael.bekaert@stir.ac.uk>
 
 USER root
+
+ENV STACKVERSION 1.44
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libdbd-mysql-perl libsparsehash-dev samtools libbam-dev mysql-client --no-install-recommends
@@ -30,7 +27,7 @@ RUN ln -s /usr/include/google /usr/include/sparsehash && \
     wget http://catchenlab.life.illinois.edu/stacks/source/stacks-${STACKVERSION}.tar.gz && \
     tar xzf stacks-${STACKVERSION}.tar.gz && \
     cd stacks-${STACKVERSION} && \
-    ./configure --enable-sparsehash --enable-bam --with-bam-include-path=/usr/include/samtools --with-bam-lib-path=/usr/lib && \
+    ./configure --enable-sparsehash --enable-bam && \
     make -j 8 && \
     make install && \
     rm -rf /usr/local/share/stacks/php && \
@@ -48,8 +45,3 @@ RUN ln -s /usr/include/google /usr/include/sparsehash && \
 USER biodocker
 
 WORKDIR /data/
-
-##################### INSTALLATION END ##########################
-
-# File Author / Maintainer
-MAINTAINER Michael Bekaert <michael.bekaert@stir.ac.uk>
